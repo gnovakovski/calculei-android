@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Calculei</string>
+    <string name="play_button_text">Jogar</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="correct_answer">Acertou</string>
+    <string name="wrong_answer">Errou</string>
+</resources>
