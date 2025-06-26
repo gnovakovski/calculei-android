@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,13 +14,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -31,6 +27,14 @@ import androidx.compose.ui.unit.sp
 import br.com.calculei.R
 
 class GameActivity : ComponentActivity() {
+
+    var answers: MutableList<Int> = mutableListOf()
+
+
+    fun updateAnswers(updatedAnswers: List<Int>) {
+        answers = updatedAnswers
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,106 +59,128 @@ class GameActivity : ComponentActivity() {
 @Composable
 fun Game() {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.fillMaxWidth(),  horizontalArrangement = Arrangement.Center) {
-            Button(
-                onClick = {
-                    // Here we need to show the answers we generated on GameViewModel on the bottom
-
-                },
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
+        val gameViewModel = GameViewModel()
+        val matrix = gameViewModel.createMatrixOfQuestions()
+        for (i in matrix.indices) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = "15s"
-                )
+                for (j in matrix[i].indices) {
+                    Button(
+                        onClick = {
+                            gameViewModel.updateAnswers(matrix[i][j].answers)
+                        },
+                        modifier = Modifier.padding(4.dp),
+                        shape = CircleShape
+                    ) {
+                        Text(
+                            text = matrix[i][j].answers[0].toString()
+                        )
+                    }
+                }
             }
-            Spacer(Modifier.padding(4.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
-            ) {
-                Text(
-                    text = "15s"
-                )
-            }
-            Spacer(Modifier.padding(4.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
-            ) {
-                Text(
-                    text = "15s"
-                )
-            }
-            Spacer(Modifier.padding(4.dp))
         }
-        Spacer(Modifier.padding(4.dp))
-        Row(modifier = Modifier.fillMaxWidth(),  horizontalArrangement = Arrangement.Center) {
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
-            ) {
-                Text(
-                    text = "15s"
-                )
-            }
-            Spacer(Modifier.padding(4.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
-            ) {
-                Text(
-                    text = "15s"
-                )
-            }
-            Spacer(Modifier.padding(4.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
-            ) {
-                Text(
-                    text = "15s"
-                )
-            }
-            Spacer(Modifier.padding(4.dp))
-        }
-        Spacer(Modifier.padding(4.dp))
-        Row(modifier = Modifier.fillMaxWidth(),  horizontalArrangement = Arrangement.Center) {
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
-            ) {
-                Text(
-                    text = "15s"
-                )
-            }
-            Spacer(Modifier.padding(4.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
-            ) {
-                Text(
-                    text = "15s"
-                )
-            }
-            Spacer(Modifier.padding(4.dp))
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(4.dp),
-                shape = RectangleShape
-            ) {
-                Text(
-                    text = "15s"
-                )
-            }
-            Spacer(Modifier.padding(4.dp))
+//        Row(modifier = Modifier.fillMaxWidth(),  horizontalArrangement = Arrangement.Center) {
+//            Button(
+//                onClick = {
+//                    // Here we need to show the answers we generated on GameViewModel on the bottom
+//
+//                },
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
+//        }
+//        Spacer(Modifier.padding(4.dp))
+//        Row(modifier = Modifier.fillMaxWidth(),  horizontalArrangement = Arrangement.Center) {
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
+//        }
+//        Spacer(Modifier.padding(4.dp))
+//        Row(modifier = Modifier.fillMaxWidth(),  horizontalArrangement = Arrangement.Center) {
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.padding(4.dp),
+//                shape = RectangleShape
+//            ) {
+//                Text(
+//                    text = "15s"
+//                )
+//            }
+//            Spacer(Modifier.padding(4.dp))
         }
     }
 }
@@ -170,46 +196,26 @@ fun Question(text: String) {
 
 @Composable
 fun Answers(answers: List<Int>, modifier: Modifier = Modifier) {
-    var gameView = GameViewModel()
-    var matrix = gameView.createMatrixOfButtons()
-    for (i in matrix.indices) {
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Button(onClick = {}, modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = answers[0].toString()
+            )
+        }
+        Button(onClick = {},  modifier = Modifier.padding(4.dp)) {
+            Text(
+                text = answers[1].toString()
+            )
+        }
+        Button(
+            onClick = {},
+            modifier = Modifier.padding(4.dp),
         ) {
-            for (j in matrix[i].indices) {
-                Button(
-                    onClick = {},
-                    modifier = Modifier.padding(4.dp),
-                    shape = CircleShape
-                ) {
-                    Text(
-                        text = matrix[i][j].results[0].toString()
-                    )
-                }
-            }
+            Text(
+                text = answers[2].toString()
+            )
         }
     }
-//    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-//        Button(onClick = {}, modifier = Modifier.padding(4.dp)) {
-//            Text(
-//                text = answers[0].toString()
-//            )
-//        }
-//        Button(onClick = {},  modifier = Modifier.padding(4.dp)) {
-//            Text(
-//                text = answers[1].toString()
-//            )
-//        }
-//        Button(
-//            onClick = {},
-//            modifier = Modifier.padding(4.dp),
-//        ) {
-//            Text(
-//                text = answers[2].toString()
-//            )
-//        }
-//    }
 }
 
 @Composable
